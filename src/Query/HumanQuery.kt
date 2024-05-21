@@ -1,0 +1,6 @@
+package Query
+
+class HumanQuery {
+
+
+}
