@@ -1,4 +1,4 @@
-package Query
+package query
 
 class HumanQuery {
 
