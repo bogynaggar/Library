@@ -2,43 +2,30 @@ package query
 
 import model.Data
 import model.Librarian
+import model.Reader
+import model.User
 
 class SigningQuery {
 
-    var librarian = Data().librarianList
-    var reader = Data().readerList
+    private var librarian = Data().librarianList
+    private var reader = Data().readerList
 
-    fun librarianSearch (userName :String): Boolean {
-        return librarian.find { it.userName == userName}!= null
+    ////   Librarian Functions   ////
+    fun librarianSignin() {
+        if (signIn(librarian)) {
+            println("Signed in Successfully ")
+        }
     }
 
-    fun librarianSignin (){
-        while (true){
-        println("Please enter your user name ")
-        val userName = readlnOrNull().toString()
-        if (SigningQuery().librarianSearch(userName)) {
-            val signedlibrarian = Data().librarianList.find { it.userName == userName }
-            val name = signedlibrarian?.name
-            println("Welcome $name")
-            break
-        } else {
-            println("We Don't have this user in our database")
-
-        }
-
-        }
-
-    }
-
-    fun librarianSignUp (){
-        add@while (true) {
-            println("Please enter the data of new librarian ")
+    fun librarianRegister() {
+        add@ while (true) {
+            println("Please enter the data of the new librarian ")
             val index = librarian.size - 1
             val newId = librarian[index].id + 1
             println("Please enter the librarian's UserName ")
-            val userName =  inputHandel()
+            val userName = inputHandel()
             println("Please enter the librarian's Password ")
-            val password =  inputHandel()
+            val password = inputHandel()
             println("Please enter the librarian's Name ")
             val name = inputHandel()
             println("Please enter the librarian's address ")
@@ -51,67 +38,143 @@ class SigningQuery {
             val newLibrarian = Librarian(newId, userName, password, name, address, telephone, position)
 
             println("you have entered these data ")
-            println(newLibrarian.toString() )
+            println(newLibrarian.toString())
 
-            println("Do you want to save this data to anew librarian ? \n " +
-                    "1 - yes \n " +
-                    "2 - No  and retry enter data again ")
+            println(
+                "Do you want to save this data to anew librarian ? \n " +
+                        "1 - yes \n " +
+                        "2 - No  and retry enter data again "
+            )
 
-            save@while (true){
+            save@ while (true) {
                 val select = readln().toInt()
-                when (select){
-                   1 -> {librarian.add(newLibrarian)
-                   println("${newLibrarian.name} added as anew user Successfully ")
-                    break
-                   }
-                   2 -> {
-                   continue@add
-                   }
+                when (select) {
+                    1 -> {
+                        librarian.add(newLibrarian)
+                        println("${newLibrarian.name} added as anew user Successfully ")
+                        break
+                    }
+
+                    2 -> {
+                        continue@add
+                    }
+
                     else -> {
-                    println("Wrong Choice !")
-                    continue@save
-                  }
+                        println("Wrong Choice !")
+                        continue@save
+                    }
+                }
             }
-          }
         }
 
     }
 
-    fun readerSearch(userName :String): Boolean{
-        return reader.find { it.userName == userName}!= null
-    }
 
-    fun readerSignin (){
-        while (true){
-            println("Please enter your user name ")
-            val userName = readlnOrNull().toString()
-            if (SigningQuery().readerSearch(userName)) {
-                val signedReader = Data().readerList.find { it.userName == userName }
-                val name = signedReader?.name
-                println("Welcome $name")
-
-                break
-            } else {
-                println("We Don't have this user in our database")
-
-            }
-
+    ////   Reader Functions   ////
+    fun readerSignin() {
+        if (signIn(reader)) {
+            println("Signed in Successfully ")
         }
     }
 
+    fun readerRegister() {
+        add@ while (true) {
+            println("Please enter the data of the new Reader ")
+            val index = reader.size - 1
+            val newId = reader[index].id + 1
+            println("Please enter the reader's UserName ")
+            val userName = inputHandel()
+            println("Please enter the reader's Password ")
+            val password = inputHandel()
+            println("Please enter the reader's Name ")
+            val name = inputHandel()
+            println("Please enter the reader's address ")
+            val address = inputHandel()
+            println("Please enter the reader's Telephone ")
+            val telephone = inputHandel()
+            println("Please enter the reader's Rank ")
+            val rank = inputHandel()
+            println("Please enter the reader's Gender ")
+            val gender = inputHandel()
 
-    fun inputHandel(): String {
-        while (true){
+            val newReader = Reader(newId, userName, password, name, address, telephone, rank, gender)
+
+            println("you have entered these data ")
+            println(newReader.toString())
+
+            println(
+                "Do you want to save this data as anew Reader ? \n " +
+                        "1 - yes \n " +
+                        "2 - No  and retry enter data again "
+            )
+
+            save@ while (true) {
+                val select = readln().toInt()
+                when (select) {
+                    1 -> {
+                        reader.add(newReader)
+                        println("${newReader.name} added as anew reader Successfully ")
+                        break
+                    }
+
+                    2 -> {
+                        continue@add
+                    }
+
+                    else -> {
+                        println("Wrong Selection !")
+                        continue@save
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    ////   Support Functions   ////
+    private fun inputHandel(): String {
+        while (true) {
             val input = readln()
             when {
-                 input.isEmpty() -> {
-                 println("You didn't put anything retry ")
-                     continue
-                 }
+                input.isEmpty() -> {
+                    println("You didn't enter anything !! Retry ")
+                    continue
+                }
             }
-        return input
+            return input
 
-      }
+        }
     }
+
+    private fun userSearch(userName: String, list: List<User>): Boolean {
+        return list.find { it.userName == userName } != null
+    }
+
+    private fun signIn(list: List<User>): Boolean {
+        username@ while (true) {
+            println("Please enter your user name ")
+            val userName = inputHandel()
+            if (userSearch(userName, list)) {
+                val signedUser = list.find { it.userName == userName }
+                val name = signedUser?.name
+                val password = signedUser?.password
+                password@ while (true) {
+                    println("Please enter your Password ")
+                    val inputPassword = inputHandel()
+                    if (inputPassword == password) {
+                        println("Welcome $name")
+                        return true
+                    } else {
+                        println("Wrong Password !! retry ")
+                    }
+                }
+
+            } else {
+                println("We Don't have this user in our database !! Retry ")
+            }
+        }
+    }
+
 
 }
