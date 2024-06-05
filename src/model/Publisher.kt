@@ -6,4 +6,14 @@ data class Publisher(
     override var address :String,
     override var telelphone :String,
     var companyName :String
-):Human(id , name , telelphone , address)
+):Human(id , name , telelphone , address){
+
+    override fun toString(): String {
+        return (" \t      Id : $id \n " +
+                " \t    Name : $name \n " +
+                " \t Address : $address \n" +
+                "  Telephone : $telelphone \n" +
+                "Company name : $companyName \n"
+                )
+    }
+}
