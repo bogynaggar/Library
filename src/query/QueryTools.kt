@@ -1,7 +1,6 @@
 package query
 
 import model.*
-import java.time.LocalDate
 
 class QueryTools {
 
