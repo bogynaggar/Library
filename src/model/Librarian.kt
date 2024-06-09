@@ -8,7 +8,7 @@ data class Librarian(
     override var address :String,
     override var telelphone :String,
     var position :String
-):User (id , userName , password , name , telelphone , address){
+):User (id, userName, password, name, telelphone){
 
     override fun toString(): String {
         return (" \t      Id : $id \n " +

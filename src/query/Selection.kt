@@ -8,8 +8,8 @@ class Selection {
         fun1: () -> Unit,
         fun2: () -> Unit,
     ) {
+        println(message)
         input@ while (true) {
-            println(message)
             val input = readlnOrNull()
             when {
                 input == null -> {
@@ -18,7 +18,7 @@ class Selection {
                 }
 
                 input.isEmpty() -> {
-                    println("you didn't select anything")
+                    println("you didn't select anything Retry !!")
                 }
 
                 else -> {
@@ -51,9 +51,13 @@ class Selection {
         fun1: () -> Unit,
         fun2: () -> Unit,
         fun3: () -> Unit,
+        fun4: () -> Unit,
+        fun5: () -> Unit,
+        fun6: () -> Unit,
+
     ) {
-        println(message)
         input@ while (true) {
+            println(message)
             val input = readlnOrNull()
             when {
                 input == null -> {
@@ -74,18 +78,31 @@ class Selection {
                         when (number) {
                             1 -> {
                                 fun1()
-                                break
+
                             }
 
                             2 -> {
                                 fun2()
-                                break
+
                             }
 
                             3 -> {
                                 fun3()
-                                break
+
                             }
+                            4 -> {
+                                fun4()
+
+                            }
+                            5 -> {
+                                fun5()
+
+                            }
+                            6 -> {
+                                fun6()
+
+                            }
+
 
                             else -> println("Wrong Selection !! Retry ")
                         }

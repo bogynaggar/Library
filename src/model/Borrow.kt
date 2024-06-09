@@ -4,8 +4,8 @@ import java.time.LocalDate
 
 
    class Borrow(
-       private var idReader: Int,
-       private var idBook: Int,
+        var idReader: Int,
+        var idBook: Int,
        private var lendDate: LocalDate,
        var dueDate: LocalDate)
    {

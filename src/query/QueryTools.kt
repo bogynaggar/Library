@@ -12,40 +12,40 @@ class QueryTools {
     private var authors = Data.authorList
     private var publishers = Data.publisherList
     private val current: LocalDate = LocalDate.now()
+    private var signedUser =  User()
 
 ///  1- librarian fun ///
 
     private fun librarianSignin() {
-        if (QueryTools().signIn(librarians)) {
-            println(
-                "Signed in Successfully \n" +
-                        "------------------------- "
-            )
+       signedUser = signIn(librarians)
+        println(
+            "Signed in Successfully \n" +
+                    "------------------------- "
+        )
 
-            val message = "Please select your inquiry from the menu below , type the number of selection ! \n" +
-                    "1- Register new librarian\n" +
-                    "2- Register new reader\n" +
-                    "3- Add new book\n" +
-                    "4- Add new Author\n" +
-                    "5- Add new publisher\n" +
-                    "6- check available books\n" +
-                    "7- Borrow book to reader\n" +
-                    "8- Check Books due for return\n" +
-                    "9- Sign out \n"
+        val message = "Please select your inquiry from the menu below , type the number of selection ! \n" +
+                "1- Register new librarian\n" +
+                "2- Register new reader\n" +
+                "3- Add new book\n" +
+                "4- Add new Author\n" +
+                "5- Add new publisher\n" +
+                "6- check available books\n" +
+                "7- Borrow book to reader\n" +
+                "8- Check Books due for return\n" +
+                "9- Sign out \n"
 
-            Selection().select(
-                message,
-                { librarianRegister() },
-                { readerRegister() },
-                { addBook() },
-                { addAuthor() },
-                { addPublisher() },
-                { availableBooks() },
-                { borrowBook() },
-                { dueBooks() },
-                { system() },
-            )
-        }
+        Selection().select(
+            message,
+            { librarianRegister() },
+            { readerRegister() },
+            { addBook() },
+            { addAuthor() },
+            { addPublisher() },
+            { availableBooks() },
+            { librarianBorrowBook() },
+            { librarianDueBooks() },
+            { system() },
+        )
     }
 
     private fun librarianRegister() {
@@ -104,13 +104,31 @@ class QueryTools {
 ///  2- Reader Functions ///
 
     private fun readerSignin() {
-        if (QueryTools().signIn(readers)) {
+        signedUser = signIn(readers)
             println(
                 "Signed in Successfully  \n" +
                         "--------------------------"
             )
 
-        }
+            val message = "Please select your inquiry from the menu below , type the number of selection ! \n" +
+                    "1- Update your data\n" +
+                    "2- Check available books\n" +
+                    "3- Check available author's books \n" +
+                    "4- Borrow book\n" +
+                    "5- Check your due books\n" +
+                    "6- Sign out \n"
+
+            Selection().select(
+                message,
+                { readerUpdate() },
+                { availableBooks()},
+                { availableAuthorBooks() },
+                { readerBorrowBook() },
+                { readerDueBooks() },
+                { system() },
+            )
+
+
     }
 
     private fun readerRegister() {
@@ -165,6 +183,73 @@ class QueryTools {
             }
         }
 
+    }
+
+    private fun readerUpdate(){
+        val signedId = signedUser.id
+        if (userSearch(signedId, readers)) {
+            add@ while (true) {
+                println("Please enter your new UserName ")
+                val userName = inputHandel()
+                println("Please enter your new Password ")
+                val password = inputHandel()
+                println("Please enter your new Name ")
+                val name = inputHandel()
+                println("Please enter your new address ")
+                val address = inputHandel()
+                println("Please enter your new Telephone ")
+                val telephone = inputHandel()
+                val signedRank = readers.find { it.id == signedId }?.rank.toString()
+                val signedGender =  readers.find { it.id == signedId }?.gender.toString()
+
+                val newReader = Reader(signedId, userName, password, name, address, telephone,signedRank, signedGender)
+
+                println("you have entered these data ")
+                println(newReader.toString())
+
+                println(
+                    "Do you want to update this data  ? \n " +
+                            "1 - yes \n " +
+                            "2 - No  and retry enter data again "
+                )
+
+                save@ while (true) {
+                    val select = readln().toInt()
+                    when (select) {
+                        1 -> {
+                            readers.replaceAll{
+                                if (it.id == signedId){
+                                    it.copy(
+                                        id = signedId,
+                                        userName = userName,
+                                        password = password,
+                                        name = name,
+                                        address = address,
+                                        telelphone = telephone,
+                                        rank = signedRank,
+                                        gender = signedGender
+                                    )
+                                } else {
+                                    it
+                                }
+                            }
+                            println("Your data updated Successfully ")
+                            break
+                        }
+
+                        2 -> {
+                            continue@add
+                        }
+
+                        else -> {
+                            println("Wrong Selection !! Retry")
+                            continue@save
+                        }
+                    }
+                }
+            }
+
+        }
     }
 
 ///  3- Book Functions ///
@@ -235,9 +320,8 @@ class QueryTools {
         println("-------------------------------- ")
     }
 
-    private fun borrowBook() {
-        // var  newBorrow  = Borrow()
-        while (true) {
+    private fun librarianBorrowBook() {
+        reader@while (true) {
             println("please enter the Reader Id who borrow book !")
             val readerId = inputHandelInt()
             if (QueryTools().userSearch(readerId, readers)) {
@@ -251,9 +335,10 @@ class QueryTools {
                         borrowedBooks.add(borrow)
                         println(borrow.toString())
                         println(
-                            "Mission Done Successfully " +
+                            "Mission Done Successfully \n" +
                                     "-------------------------"
                         )
+                        break@reader
 
                     } else {
                         println("Wrong Book Id Retry!")
@@ -268,7 +353,30 @@ class QueryTools {
         }
     }
 
-    private fun dueBooks() {
+    private fun readerBorrowBook() {
+               val signedId = signedUser.id
+                book@ while (true) {
+                    println("please enter the book Id to borrow !")
+                    val bookId = inputHandelInt()
+                    if (books.find { it.id == bookId } != null) {
+                        val dueDate = LocalDate.from(current).plusMonths(1)
+                        val borrow = Borrow(signedId, bookId, current, dueDate)
+                        borrowedBooks.add(borrow)
+                        println(borrow.toString())
+                        println(
+                            "Mission Done Successfully \n" +
+                                    "-------------------------"
+                        )
+                        break@book
+
+                    } else {
+                        println("Wrong Book Id Retry!")
+                        continue@book
+                    }
+                }
+    }
+
+    private fun librarianDueBooks() {
         val newDueBooks = mutableListOf<Borrow>()
         for (i in borrowedBooks) {
             if (i.dueDate.isBefore(current)) {
@@ -278,6 +386,27 @@ class QueryTools {
             }
         }
         println("Total number of due books is ${newDueBooks.size}")
+        println("Mission Done Successfully ")
+        println("-------------------------")
+
+    }
+
+    private fun readerDueBooks() {
+        val signedId = signedUser.id
+        val newDueBooks = mutableListOf<Borrow>()
+        for (i in borrowedBooks) {
+            if (i.idReader == signedId) {
+                if (i.dueDate.isBefore(current)) {
+                    newDueBooks.add(i)
+                    println(i.toString())
+                }
+            }
+        }
+        if (newDueBooks.size == 0 ){println("You don't borrow any bok yet ")
+        }else{
+            println("Total number of due books is ${newDueBooks.size}")
+        }
+
         println("Mission Done Successfully ")
         println("-------------------------")
 
@@ -332,7 +461,29 @@ class QueryTools {
 
     }
 
-///  5- Publisher Functions ///
+    private fun availableAuthorBooks() {
+        println(
+            "Available Author's books  in the Library\n" +
+                    "-------------------------------- "
+        )
+        for (i in 0..<authors.size) {
+            val authorName  = authors[i].name
+            val authorBooks = books.filter { it.author == authorName}
+                println("${i + 1} - $authorName  \t")
+                if (authorBooks.isEmpty()) {
+                    println("\t\t\t\t We don't have any book for $authorName")
+                }else {
+                    for(x in authorBooks.indices) {
+                        println("\t\t\t\t ${x + 1} - ${authorBooks[x].name}  \t ${authorBooks[x].id}")
+                    }
+                   }
+            println("-------------------------------- ")
+        }
+
+        }
+
+
+    ///  5- Publisher Functions ///
     private fun addPublisher() {
         add@ while (true) {
             println("Please enter the data of the new publisher ")
@@ -442,20 +593,20 @@ class QueryTools {
         return list.find { it.id == userId } != null
     }
 
-    private fun signIn(list: List<User>): Boolean {
+    private fun signIn(list: List<User>): User {
         username@ while (true) {
             println("Please enter your user name ")
             val userName = inputHandel()
             if (userSearch(userName, list)) {
                 val signedUser = list.find { it.userName == userName }
-                val name = signedUser?.name
-                val password = signedUser?.password
+                val signedName = signedUser?.name.toString()
+                val password =signedUser?.password
                 password@ while (true) {
                     println("Please enter your Password ")
                     val inputPassword = inputHandel()
                     if (inputPassword == password) {
-                        println("Welcome $name")
-                        return true
+                        println("Welcome $signedName")
+                        return signedUser
                     } else {
                         println("Wrong Password !! retry ")
                         continue@password
@@ -467,6 +618,5 @@ class QueryTools {
             }
         }
     }
-
 
 }

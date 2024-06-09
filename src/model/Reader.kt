@@ -9,7 +9,7 @@ data class Reader(
     override var telelphone: String,
     var rank :String,
     var gender : String
-):User(id,userName , password , name, address , telelphone){
+):User(id, userName, password, name, address){
 
     override fun toString(): String {
         return (" \t      Id : $id \n " +
