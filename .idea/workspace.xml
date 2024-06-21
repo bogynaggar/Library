@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d54d061-619b-4790-a05c-e5f44ce2aa19" name="Changes" comment="update Sign in fun">
+    <list default="true" id="1d54d061-619b-4790-a05c-e5f44ce2aa19" name="Changes" comment="Update reader menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Borrow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Borrow.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Data.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Data.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Librarian.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Librarian.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Reader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Reader.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/User.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/query/QueryTools.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/query/QueryTools.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/query/Selection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/query/Selection.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,26 +44,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Downloaded.Files.Path.Enabled": "true",
-    "Kotlin.MainKt.executor": "Run",
-    "Kotlin.Unnamed.executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "onboarding.tips.debug.path": "C:/Users/dr_mo/IdeaProjects/Library/src/Main.kt",
-    "project.structure.last.edited": "Global Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
+    &quot;Kotlin.MainKt.executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/dr_mo/IdeaProjects/Library/src/Main.kt&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Unnamed" type="JetRunConfigurationType" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MainKt" />
@@ -137,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716756338586</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Update reader menu">
+      <option name="closed" value="true" />
+      <created>1717894522297</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1717894522297</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -159,7 +161,8 @@
     <MESSAGE value="data Class added" />
     <MESSAGE value="librarian sign up &amp; selection fun" />
     <MESSAGE value="update Sign in fun" />
-    <option name="LAST_COMMIT_MESSAGE" value="update Sign in fun" />
+    <MESSAGE value="Update reader menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update reader menu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -187,7 +190,7 @@
         <watch expression="userName" />
         <watch expression="this" />
       </configuration>
-      <inline-watch fileUrl="file://$PROJECT_DIR$/src/query/QueryTools.kt" line="600">
+      <inline-watch fileUrl="file://$PROJECT_DIR$/src/query/QueryTools.kt" line="599">
         <watch expression="string" language="kotlin" />
       </inline-watch>
     </watches-manager>

@@ -312,10 +312,12 @@ class QueryTools {
     private fun availableBooks() {
         println(
             "Available books in the Library\n" +
-                    "-------------------------------- "
+                    "--------------------------------\n"+
+                    "    Book ID     Book Name "
+
         )
         for (i in 0..<books.size) {
-            println("${i + 1} - ${books[i].name}")
+            println("${i + 1} -  ${books[i].id}     - ${books[i].name} ")
         }
         println("-------------------------------- ")
     }
